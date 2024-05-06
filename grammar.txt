@@ -1,0 +1,41 @@
+expr : (value_expr|void_expr)
+
+value_expr : or_chain
+           : IDENTIFIER EQ value_expr
+           : KEYWORD:var IDENTIFIER EQ value_expr
+
+void_expr : (if_stmt|for_loop)
+          : KEYWORD:print LPAREN value_expr RPAREN
+
+if_stmt : KEYWORD:if LPAREN value_expr RPAREN LBRACE expr* RBRACE (KEYWORD:elif LPAREN value_expr RPAREN LBRACE expr* RBRACE)* KEYWORD:else LBRACE expr* RBRACE
+
+for_loop : KEYWORD:for LPAREN expr? SEMICOLON value_expr SEMICOLON expr RPAREN LBRACE expr_list RBRACE  
+
+or_chain : or_operand ((OR) or_operand)*
+
+or_operand : and_operand ((AND) and_operand)*
+
+and_operand : ee_operand ((EE|NE) ee_operand)*
+
+ee_operand : gt_operand ((GT|GTE) gt_operand)*
+
+gt_operand : lt_operand ((LT|LTE) lt_operand)*
+
+lt_operand : term ((PLUS|MINUS) term)*
+
+term : factor ((MUL|DIV) factor)*
+
+factor : atom (EXP atom)*
+
+atom : INT|FLOAT
+     : LPAREN value_expr RPAREN
+     : LPAREN ( IDENTIFIER (COMMA IDENTIFIER)* )? RPAREN LBRACE expr* RBRACE
+     : (PLUS|MINUS) atom
+     : (NOT) atom
+     : IDENTIFIER (LPAREN (value_expr (COMMA value_expr)*)? RPAREN)?
+     : LSIC [^RSIC]* RSIC
+     : LDIC [^RDIC]* RDIC
+     : KEYWORD:input_str LPAREN value_expr RPAREN
+     : KEYWORD:input_num LPAREN value_expr RPAREN
+
+
