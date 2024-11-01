@@ -1,6 +1,6 @@
 # Cicinlang
 
-Welcome to the Cicinlang repo. Cicinlang is a toy programming language created using Python. It is a general-purpose, procedural, interpreted language that includes support for loops, conditional statements, variables and functions (including partial support for anonymous functions).
+Welcome to the Cicinlang repo. Cicinlang is a programming language created using Python. It is a general-purpose, procedural, interpreted language that includes support for loops, conditional statements, variables and functions (including partial support for anonymous functions).
 
 This documentation serves as a guide on the basics of Cicinlang syntax.
 
